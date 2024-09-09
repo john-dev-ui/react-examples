@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.re-render,
+.re-render-sm {
+  color: red;
+  font-family: 'Monaco', sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.re-render-sm {
+  font-size: 10px;
+}
+
+.App > *,
+.Example1 > * {
+  padding: 10px;
+  border: 1px solid rgb(219, 219, 205);
+  margin: 5px 0;
+  border-radius: 8px;
+}
+
+.Solution > * {
+  border-color: rgb(226, 217, 210);
+}
+
+.app-wrapper {
+  padding: 20px;
+  border: 1px solid hsl(75, 20%, 34%);
+  border-radius: 5px;
+}
+
+/* ------------------------------------------------- */
+/* useVisualRender hook classes */
+/* ------------------------------------------------- */
+:root {
+  --renderCount: 'Count =';
+  --renderCountColor: #fff;
+  --renderCountBgColor: hsl(0, 0%, 0%);
+  --renderCountBorderRadius: 5px;
+}
+
+.show-render-count::before {
+  /* content: var(--renderCount); */
+  content: attr(data-render-count);
+  display: inline-block;
+  font-size: 10px;
+  padding: 3px;
+  font-weight: bold;
+  color: var(--renderCountColor);
+  background-color: var(--renderCountBgColor);
+  border-radius: var(--renderCountBorderRadius);
+}
