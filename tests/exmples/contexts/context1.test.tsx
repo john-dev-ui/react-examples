@@ -38,10 +38,10 @@ describe('context', () => {
         const UsingProviderApp = () => {
             const [count, setCount] = useState(1)
 
-            return  <CounterContext.Provider value={{ count, setCount }}>
-                    <Component1 />
-                    <Stateless />
-                </CounterContext.Provider>            
+            return <CounterContext.Provider value={{ count, setCount }}>
+                <Component1 />
+                <Stateless />
+            </CounterContext.Provider>
         }
 
         it('re renders stateless components ', async () => {
@@ -110,52 +110,52 @@ describe('context', () => {
             return <CounterProvider>
                 <Component1 />
                 <Stateless />
-            </CounterProvider>            
+            </CounterProvider>
         }
 
 
-        it('re renders stateless components ', async () => {
+        it('stateless components rendered only once', async () => {
 
-                const { getByText } = render(<UsingCustomProviderApp />)
+            const { getByText } = render(<UsingCustomProviderApp />)
 
-                await waitFor(() => {
-                    getByText('count: 1')
-                })
-
-                expect(childRenderFn).toBeCalledTimes(1)
-
-                fireEvent.click(getByText('parentButton'))
-
-                await waitFor(() => {
-                    getByText('count: 2')
-                })
-
-                expect(childRenderFn).toBeCalledTimes(1)
-
+            await waitFor(() => {
+                getByText('count: 1')
             })
 
+            expect(childRenderFn).toBeCalledTimes(1)
 
+            fireEvent.click(getByText('parentButton'))
 
-        it('stateless component is not rendered', async () => {
-
-                const { getByText } = render(<UsingCustomProviderApp />)
-
-                await waitFor(() => {
-                    getByText('count: 1')
-                })
-
-                expect(childRenderFn).toBeCalledTimes(1)
-
-                fireEvent.click(getByText('parentButton'))
-                fireEvent.click(getByText('parentButton'))
-
-                await waitFor(() => {
-                    getByText('count: 3')
-                })
-
-                expect(childRenderFn).toBeCalledTimes(1)
-
+            await waitFor(() => {
+                getByText('count: 2')
             })
+
+            expect(childRenderFn).toBeCalledTimes(1)
+
+        })
+
+
+
+        it('multiple clicks don\'t trigger re-render in  the child component', async () => {
+
+            const { getByText } = render(<UsingCustomProviderApp />)
+
+            await waitFor(() => {
+                getByText('count: 1')
+            })
+
+            expect(childRenderFn).toBeCalledTimes(1)
+
+            fireEvent.click(getByText('parentButton'))
+            fireEvent.click(getByText('parentButton'))
+
+            await waitFor(() => {
+                getByText('count: 3')
+            })
+
+            expect(childRenderFn).toBeCalledTimes(1)
+
+        })
 
     })
 })
